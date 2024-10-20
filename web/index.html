@@ -3,22 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/styles/base.css">
-    <link rel="stylesheet" href="/src/fonts/dseg7/dseg7.css">
-    <link rel="stylesheet" href="/src/fonts/jersey10/jersey10.css">
-    <link rel="stylesheet" href="/src/fonts/strait/strait.css">
+    <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/fonts/dseg7/dseg7.css">
+    <link rel="stylesheet" href="./src/fonts/jersey10/jersey10.css">
+    <link rel="stylesheet" href="./src/fonts/strait/strait.css">
     <title>Chord Machine</title>
 </head>
 <body>
     <div class="machine-container">
-        <div class="machine-container-buttons">
-            <button>C</button>
-            <button>Dm</button>
-            <button>Em</button>
-            <button>F</button>
-            <button>G</button>
-            <button>Am</button>
-            <button>B</button>
+        <div class="panel-logo">Chord Machine</div>
+        <div class="panel-settings">
+            <div class="key-container">
+                KEY
+                <select>
+                    <option value="C">C</option>
+                    <option value="C#">C#</option>
+                    <option value="D">D</option>
+                    <option value="D#">D#</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="F#">F#</option>
+                    <option value="G">G</option>
+                    <option value="G#">G#</option>
+                    <option value="A">A</option>
+                    <option value="A#">A#</option>
+                    <option value="B">B</option>
+                </select>
+            </div>
+            <div class="scale-container">
+                SCALE
+                <select>
+                    <option value="Major">MAJOR</option>
+                    <option value="Minor">MINOR</option>
+                    <option value="Major-Harmonic">MAJOR HARMONIC</option>
+                    <option value="Minor-Harmonic">MINOR HARMONIC</option>
+                </select>
+            </div>
+            <div class="instrument-container">
+                INSTRUMENT
+                <select>
+                    <option value="Piano">PIANO</option>
+                    <option value="Acoustic-Guitar">ACOUSTIC GUITAR</option>
+                    <option value="Distortion-Guitar">DIST GUITAR</option>
+                </select>
+            </div>
+            <div class="bpm-text">TEMPO</div>
+            <div class="genre-container">
+                GENRE
+                <select>
+                    <option value="Pop">POP</option>
+                    <option value="Rock">ROCK</option>
+                    <option value="Rock">JASS</option>
+                </select>
+            </div>
+        </div>
+        <div class="panel-control">
+            <div class="left-container">
+                <div class="volume-container">
+                    VOLUME
+                    <div class="slidecontainer">
+                        <input type="range" min="1" max="100" value="80" class="slider" id="myRange">
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <button>STOP/PLAY</button>
+                    <button>METRO</button>
+                    <button>EXPORT</button>
+                </div>
+            </div>
+            <div class="bpm-container">180</div>
+            <div class="right-container">
+                <button>GENERATE</button>
+            </div>
         </div>
     </div>
 </body>

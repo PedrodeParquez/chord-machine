@@ -22,30 +22,220 @@ body {
 }
 
 .machine-container {
+    padding: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     background: var(--light-beige);
-    height: 500px;
-    width: 800px;
+    height: 550px;
+    width: 900px;
 }
 
-.machine-container-buttons {
-    gap: 10px;
-    border: none;
-    display: flex;
+.panel-logo {
+    font-size: 100px;
+    font-family: 'Jersey';
+}
+
+.panel-settings {
+    justify-content: space-between;
+    padding: 10px 15px;
     flex-direction: row;
-    justify-content: center;
-    align-content: center;
+    display: flex;
+    font-size: 25px;
+    color: var(--light-beige);
+    background-color: var(--charcoal-grey);
+    gap: 10px;
 }
 
-.machine-container-buttons button {
-    border: none;
+.key-container {
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+    font-family: 'Strait';
+}
+
+.key-container select {
+    text-align: center;
+    appearance: none;
     outline: none;
+    font-size: 18px;
+    font-family: 'Strait';
+    background-color: var(--taupe);
+    flex-direction: row;
+    display: flex;
+    width: 50px;
+}
+
+.scale-container {
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+
+.scale-container select {
+    text-align: center;
+    appearance: none;
+    outline: none;
+    background-color: var(--taupe);
+    flex-direction: row;
+    display: flex;
+    font-size: 18px;
+    font-family: 'Strait';
+    width: 145px;
+}
+
+.instrument-container {
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+
+.instrument-container select {
+    text-align: center;
+    appearance: none;
+    font-family: 'Strait';
+    outline: none;
+    background-color: var(--taupe);
+    flex-direction: row;
+    display: flex;
+    font-size: 18px;
+    font-family: 'Strait';
+    width: 140px;
+    margin-right: 10px;
+}
+
+.genre-container {
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+
+.genre-container select {
+    text-align: center;
+    appearance: none;
+    width: 65px;
+    outline: none;
+    background-color: var(--taupe);
+    flex-direction: row;
+    display: flex;
+    font-size: 18px;
+    font-family: 'Strait';
+}
+
+.panel-control {
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+    font-size: 25px;
+    flex-direction: row;
+    display: flex;
+    color: var(--light-beige);
+}
+
+.left-container {
+    background-color: var(--charcoal-grey);
+    padding: 10px 15px;
+    align-self: center;
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+
+.volume-container {
+    align-self: center;
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+
+.volume-container input{
+    align-self: center;
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+    font-family: 'Strait';
+}
+
+.slidecontainer {
+    align-self: center;
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--light-beige);
+    outline: none;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; 
+    background: var(--vibrant-orange);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--vibrant-orange);
+    cursor: pointer;
+}
+
+.buttons-container {
+    flex-direction: row;
+    gap: 13px;
+    margin-left: 5px;
+    display: flex;
+}
+
+.buttons-container button {
+    border: none;
+    font-size: 20px;
+    color: var(--charcoal-grey);
+    font-family: 'Strait';
+    background: var(--vibrant-orange);
+    padding: 0px 25px;
+}
+
+.bpm-container {
+    background-color: #89192D;
+    color: #FF002D;
     font-size: 30px;
     align-content: center;
-    padding: 0;
-    font-family: 'Jersey';
-    width: 200px;
-    height: 100px;
+    font-family: 'Dseg';
+    border: 2px solid #000;
+    padding-right: 12px;
+}
+
+.right-container {
+    padding: 10px 15px;
+    background-color: var(--charcoal-grey);
+    align-self: center;
+    flex-direction: row;
+    height: 28px;
+    gap: 10px;
+    display: flex;
+}
+
+.right-container button {
+    border: none;
+    font-size: 20px;
+    padding: 0px 25px;
+    color: var(--charcoal-grey);
+    font-family: 'Strait';
+    background: var(--vibrant-orange);
+}
+
+.bpm-text {
+    margin-right: 10px;
 }
