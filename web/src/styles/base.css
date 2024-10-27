@@ -31,9 +31,8 @@ body {
     width: 900px;
 }
 
-.panel-logo {
-    font-size: 100px;
-    font-family: 'Jersey';
+.panel-logo img{
+    margin-bottom: 20px;
 }
 
 .panel-settings {
