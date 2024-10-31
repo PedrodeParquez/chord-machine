@@ -11,6 +11,7 @@
 body {
     background: var(--warm-brown);
     color: var(--charcoal-grey);
+    -webkit-user-select: none;
     font-family: 'Strait';
     position: fixed;
     font-weight: normal;
@@ -32,7 +33,8 @@ body {
 }
 
 .panel-logo img{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    width: 50%;
 }
 
 .panel-settings {
@@ -59,6 +61,7 @@ body {
     outline: none;
     font-size: 18px;
     font-family: 'Strait';
+    color: var(--charcoal-grey);
     background-color: var(--taupe);
     flex-direction: row;
     display: flex;
@@ -75,6 +78,7 @@ body {
     text-align: center;
     appearance: none;
     outline: none;
+    color: var(--charcoal-grey);
     background-color: var(--taupe);
     flex-direction: row;
     display: flex;
@@ -94,6 +98,7 @@ body {
     appearance: none;
     font-family: 'Strait';
     outline: none;
+    color: var(--charcoal-grey);
     background-color: var(--taupe);
     flex-direction: row;
     display: flex;
@@ -114,6 +119,9 @@ body {
     appearance: none;
     width: 65px;
     outline: none;
+    border: none;
+    user-select: none;
+    color: var(--charcoal-grey);
     background-color: var(--taupe);
     flex-direction: row;
     display: flex;
@@ -200,20 +208,24 @@ body {
 .buttons-container button {
     border: none;
     font-size: 20px;
+    cursor: pointer;
     color: var(--charcoal-grey);
     font-family: 'Strait';
     background: var(--vibrant-orange);
     padding: 0px 25px;
 }
 
+
 .bpm-container {
+    width: 80px;
     background-color: #89192D;
     color: #FF002D;
+    padding-right: 10px;
     font-size: 30px;
     align-content: center;
     font-family: 'Dseg';
     border: 2px solid #000;
-    padding-right: 12px;
+    cursor: pointer;
 }
 
 .right-container {
@@ -236,5 +248,16 @@ body {
 }
 
 .bpm-text {
-    margin-right: 10px;
+    padding-right: 15px;
+}
+
+.piano-container {
+    margin-top: 30px;
+    display: flex;
+    height: 45px;
+}
+
+.piano-container img {
+    display: flex;
+    width: 100%;
 }

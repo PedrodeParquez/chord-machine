@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/styles/sequancer.css">
     <link rel="stylesheet" href="./src/fonts/dseg7/dseg7.css">
     <link rel="stylesheet" href="./src/fonts/strait/strait.css">
     <title>Chord Machine</title>
 </head>
 <body>
     <div class="machine-container">
-        <div class="panel-logo"><img src="https://i.imgur.com/5UNfU4O.png"></div>
+        <div class="panel-logo"><img src="./src/img/logo.svg"></div>
         <div class="panel-settings">
             <div class="key-container">
                 KEY
@@ -70,11 +71,33 @@
                     <button>EXPORT</button>
                 </div>
             </div>
-            <div class="bpm-container">180</div>
+            <div class="bpm-container" id="bpm">120</div>
             <div class="right-container">
                 <button>GENERATE</button>
             </div>
         </div>
+        <div class="piano-container">
+            <img src="https://i.imgur.com/3DwuhhV.png">
+        </div>
+        <div class="sequance-container">
+            <div class="number-line">
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+                <p>4</p>
+                <p>5</p>
+            </div>
+            <div class="chords-wrapper">
+                <div class="chords-container">
+                    <div class="chord" data-width="4">C#</div>
+                    <div class="chord" data-width="4">F</div>
+                    <div class="chord" data-width="4">B</div>
+                    <div class="chord" data-width="4">A</div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+<script src="src/scripts/script.js"></script>
+<script src="src/scripts/sequancer.js"></script>
 </html>
