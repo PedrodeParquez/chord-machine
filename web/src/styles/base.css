@@ -9,15 +9,17 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
     background: var(--warm-brown);
     color: var(--charcoal-grey);
     -webkit-user-select: none;
     font-family: 'Strait';
     position: fixed;
     font-weight: normal;
-    display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
     height: 100%;
     width: 100%;
 }
@@ -260,4 +262,25 @@ body {
 .piano-container img {
     display: flex;
     width: 100%;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.menu-buttons button {
+    border: none;
+    font-size: 20px;
+    width: 75px;
+    cursor: pointer;
+    color: var(--charcoal-grey);
+    font-family: 'Strait';
+    background: var(--vibrant-orange);
+}
+
+.menu-buttons a {
+   text-decoration: none;
+   color: var(--charcoal-grey);
 }
