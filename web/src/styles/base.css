@@ -25,6 +25,7 @@ body {
 }
 
 .machine-container {
+    box-shadow: 15px -13px 14px rgba(0, 0, 0, 0.18);
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -219,10 +220,9 @@ body {
 
 
 .bpm-container {
-    width: 80px;
+    width: 90px;
     background-color: #89192D;
     color: #FF002D;
-    padding-right: 10px;
     font-size: 30px;
     align-content: center;
     font-family: 'Dseg';
@@ -251,17 +251,6 @@ body {
 
 .bpm-text {
     padding-right: 15px;
-}
-
-.piano-container {
-    margin-top: 30px;
-    display: flex;
-    height: 45px;
-}
-
-.piano-container img {
-    display: flex;
-    width: 100%;
 }
 
 .menu-buttons {

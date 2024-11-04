@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const chords = document.querySelectorAll('.chord');
-    const containerWidth = document.querySelector('.chords-container').offsetWidth;
+    const container = document.querySelector('.chords-container');
+    const containerWidth = container.offsetWidth;
     const gridSize = containerWidth / 16;
 
     chords.forEach((chord, index) => {
@@ -8,98 +9,214 @@ document.addEventListener('DOMContentLoaded', () => {
         chord.style.width = `${chordWidth}px`;
         chord.style.left = `${index * chordWidth}px`;
     });
-});
 
-document.querySelectorAll('.chord').forEach(item => {
-    const resizer = document.createElement('div');
-    resizer.classList.add('resizer');
-    item.appendChild(resizer);
+    const runnerLine = document.querySelector('.runner-line');
+    const bpmContainer = document.getElementById('bpm');
+    const toggleButton = document.getElementById('toggle-runner');
+    let animationFrameId = null;
+    let isRunning = false;
 
-    item.addEventListener('mousedown', (e) => {
-        if (e.target === resizer) return;
+    function startRunner(tempo) {
+        const beatsPerMinute = tempo;
+        const millisecondsPerBeat = 60000 / beatsPerMinute;
+        const pixelsPerMillisecond = containerWidth / (millisecondsPerBeat * 16); // 16 долей
+        let position = 0;
+        let lastTimestamp = null;
 
-        const gridContainer = document.querySelector('.chords-container');
-        const gridContainerRect = gridContainer.getBoundingClientRect();
-        const itemRect = item.getBoundingClientRect();
-        const initialX = e.clientX;
-        let shiftX = e.clientX - itemRect.left;
-
-        const onMouseMove = (e) => {
-            let newLeft = e.clientX - shiftX - gridContainerRect.left;
-
-            if (newLeft < 0) newLeft = 0;
-            if (newLeft + itemRect.width > gridContainerRect.width) newLeft = gridContainerRect.width - itemRect.width;
-
-            const gridSize = gridContainer.clientWidth / 16;
-            const nearestGridColumn = Math.round(newLeft / gridSize);
-
-            const gridSpan = Math.round(itemRect.width / gridSize);
-            const collision = checkCollision(nearestGridColumn, gridSpan, item);
-
-            if (!collision) {
-                item.style.left = `${nearestGridColumn * gridSize}px`;
-                item.style.top = '50%';
-                item.style.transform = 'translateY(-50%)';
+        function moveRunner(timestamp) {
+            if (!lastTimestamp) {
+                lastTimestamp = timestamp;
             }
-        };
 
-        document.addEventListener('mousemove', onMouseMove);
+            const elapsed = timestamp - lastTimestamp;
+            position += pixelsPerMillisecond * elapsed;
 
-        document.addEventListener('mouseup', () => {
-            document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
+            if (position >= containerWidth) {
+                position = 0;
+            }
+
+            runnerLine.style.left = `${position}px`;
+            lastTimestamp = timestamp;
+            animationFrameId = requestAnimationFrame(moveRunner);
+        }
+
+        animationFrameId = requestAnimationFrame(moveRunner);
+    }
+
+    function stopRunner() {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+
+    toggleButton.addEventListener('click', () => {
+        const bpm = parseInt(bpmContainer.textContent, 10);
+
+        if (isRunning) {
+            stopRunner();
+        } else {
+            startRunner(bpm);
+        }
+
+        isRunning = !isRunning;
     });
 
-    resizer.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    document.querySelectorAll('.chord').forEach(item => {
+        const resizer = document.createElement('div');
+        resizer.classList.add('resizer');
+        item.appendChild(resizer);
 
-        const initialX = e.clientX;
-        const initialWidth = item.getBoundingClientRect().width;
-        const gridSize = document.querySelector('.chords-container').clientWidth / 16;
+        const resizerLeft = document.createElement('div');
+        resizerLeft.classList.add('resizer-left');
+        item.appendChild(resizerLeft);
 
-        const onMouseMove = (e) => {
-            const deltaX = e.clientX - initialX;
-            const newWidth = initialWidth + deltaX;
-            const gridSpan = Math.round(newWidth / gridSize);
+        resizer.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
 
-            if (gridSpan > 0 && gridSpan <= 16) {
+            const initialX = e.clientX;
+            const initialWidth = item.getBoundingClientRect().width;
+            const gridSize = document.querySelector('.chords-container').clientWidth / 16;
+
+            const onMouseMove = (e) => {
+                const deltaX = e.clientX - initialX;
+                const newWidth = initialWidth + deltaX;
+
+                const gridSpan = Math.round(newWidth / gridSize);
                 const nearestGridColumn = Math.round(parseFloat(item.style.left) / gridSize);
+
+                const collision = checkCollision(nearestGridColumn, gridSpan, item);
+                if (!collision && gridSpan > 0 && gridSpan <= 16) {
+                    item.style.width = `${newWidth}px`;
+                }
+            };
+
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+
+                const finalWidth = item.getBoundingClientRect().width;
+                const gridSpan = Math.round(finalWidth / gridSize);
+                const nearestGridWidth = gridSpan * gridSize;
+                const nearestGridColumn = Math.round(parseFloat(item.style.left) / gridSize);
+
+                const collision = checkCollision(nearestGridColumn, gridSpan, item);
+                if (!collision && gridSpan > 0 && gridSpan <= 16) {
+                    item.style.width = `${nearestGridWidth}px`;
+                }
+
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        resizerLeft.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const initialX = e.clientX;
+            const initialLeft = parseFloat(item.style.left) || 0;
+            const initialWidth = item.getBoundingClientRect().width;
+            const gridSize = document.querySelector('.chords-container').clientWidth / 16;
+
+            const onMouseMove = (e) => {
+                const deltaX = e.clientX - initialX;
+                const newLeft = initialLeft + deltaX;
+                const newWidth = initialWidth - deltaX;
+
+                const gridSpan = Math.round(newWidth / gridSize);
+                const nearestGridColumn = Math.round(newLeft / gridSize);
+
+                const collision = checkCollision(nearestGridColumn, gridSpan, item);
+                if (!collision && newLeft >= 0 && gridSpan > 0 && gridSpan <= 16) {
+                    item.style.left = `${newLeft}px`;
+                    item.style.width = `${newWidth}px`;
+                }
+            };
+
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+
+                const finalLeft = parseFloat(item.style.left) || 0;
+                const finalWidth = item.getBoundingClientRect().width;
+                const gridSpan = Math.round(finalWidth / gridSize);
+                const nearestGridWidth = gridSpan * gridSize;
+                const nearestGridColumn = Math.round(finalLeft / gridSize);
+
+                const collision = checkCollision(nearestGridColumn, gridSpan, item);
+                if (!collision && gridSpan > 0 && gridSpan <= 16) {
+                    item.style.left = `${nearestGridColumn * gridSize}px`;
+                    item.style.width = `${nearestGridWidth}px`;
+                }
+
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        item.addEventListener('mousedown', (e) => {
+            if (e.target === resizer || e.target === resizerLeft) return;
+
+            const gridContainer = document.querySelector('.chords-container');
+            const gridContainerRect = gridContainer.getBoundingClientRect();
+            const itemRect = item.getBoundingClientRect();
+            const initialX = e.clientX;
+            let shiftX = e.clientX - itemRect.left;
+
+            const onMouseMove = (e) => {
+                let newLeft = e.clientX - shiftX - gridContainerRect.left;
+
+                const gridSize = gridContainer.clientWidth / 16;
+                const nearestGridColumn = Math.round(newLeft / gridSize);
+
+                const gridSpan = Math.round(itemRect.width / gridSize);
                 const collision = checkCollision(nearestGridColumn, gridSpan, item);
 
-                if (!collision) {
-                    item.style.width = `${gridSpan * gridSize}px`;
-                    item.style.gridColumn = `span ${gridSpan}`;
+                if (!collision && newLeft >= 0 && newLeft + itemRect.width <= gridContainerRect.width) {
+                    item.style.left = `${newLeft}px`;
+                    item.style.top = '50%';
+                    item.style.transform = 'translateY(-50%)';
+                }
+            };
+
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+
+                const finalLeft = parseFloat(item.style.left) || 0;
+                const gridSize = gridContainer.clientWidth / 16;
+                const nearestGridLeft = Math.round(finalLeft / gridSize) * gridSize;
+
+                item.style.left = `${nearestGridLeft}px`;
+
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    });
+
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    function checkCollision(startColumn, span, currentItem) {
+        const chords = document.querySelectorAll('.chord');
+        let collision = false;
+
+        chords.forEach(chord => {
+            if (chord !== currentItem) {
+                const chordLeft = parseFloat(chord.style.left) || 0;
+                const chordWidth = chord.getBoundingClientRect().width;
+                const chordStartColumn = Math.round(chordLeft / (document.querySelector('.chords-container').clientWidth / 16));
+                const chordSpan = Math.round(chordWidth / (document.querySelector('.chords-container').clientWidth / 16));
+
+                if ((startColumn < chordStartColumn + chordSpan) && (startColumn + span > chordStartColumn)) {
+                    collision = true;
                 }
             }
-        };
+        });
 
-        document.addEventListener('mousemove', onMouseMove);
-
-        document.addEventListener('mouseup', () => {
-            document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
-    });
+        return collision;
+    }
 });
-
-document.addEventListener('dragstart', (e) => e.preventDefault());
-
-function checkCollision(startColumn, span, currentItem) {
-    const chords = document.querySelectorAll('.chord');
-    let collision = false;
-
-    chords.forEach(chord => {
-        if (chord !== currentItem) {
-            const chordLeft = parseFloat(chord.style.left) || 0;
-            const chordWidth = chord.getBoundingClientRect().width;
-            const chordStartColumn = Math.round(chordLeft / (document.querySelector('.chords-container').clientWidth / 16));
-            const chordSpan = Math.round(chordWidth / (document.querySelector('.chords-container').clientWidth / 16));
-
-            if ((startColumn < chordStartColumn + chordSpan) && (startColumn + span > chordStartColumn)) {
-                collision = true;
-            }
-        }
-    });
-
-    return collision;
-}
