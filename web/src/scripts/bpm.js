@@ -8,7 +8,15 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             bpmValue = Math.max(bpmValue - 1, 60);
         }
+
+        if (bpmValue > 99) {
+            bpmContainer.style.textAlign= 'left';
+        } else {
+            bpmContainer.style.textAlign= 'center';
+        }
+
         bpmContainer.innerText = bpmValue;
+        
         event.preventDefault();
     });
 });

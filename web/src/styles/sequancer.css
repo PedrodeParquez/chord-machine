@@ -1,5 +1,5 @@
 .sequance-container {
-    margin-top: 30px;
+    margin-top: 35px;
     background: transparent;
 }
 
@@ -68,6 +68,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    transition: width 0.1s ease, left 0.1s ease;
 }
 
 .resizer {
@@ -78,4 +79,25 @@
     right: 0;
     top: 0;
     cursor: ew-resize;
+}
+    
+.resizer-left {
+    width: 2px;
+    height: 100%;
+    background: var(--light-beige);
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: ew-resize;
+}
+
+.runner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--vibrant-orange);
+    z-index: 10;
+    transition: width 0.2s ease, left 0.2s ease;
 }

@@ -1,0 +1,43 @@
+.piano {
+    margin-top: 35px;
+    position: relative;
+    height: 45px;
+    width: 100%;
+}
+
+.piano-container {
+    overflow: hidden;
+    position: absolute;
+    width: 896px;
+    height: 100%;
+    border: solid 2px var(--charcoal-grey);
+}
+
+.piano .whole, .piano .half {
+    position: absolute;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.piano .whole {
+    width: 29.032px;
+    height: 100%;
+    border-left: solid var(--charcoal-grey);
+    border-bottom: solid 1px var(--charcoal-grey);
+    background: #EEE;
+    color: var(--charcoal-grey);
+}
+
+.piano .whole:first-child {
+    border-left: none;
+}
+
+.piano .half {
+    z-index: 1;
+    width: 16.364px;
+    height: 65%;
+    top: -1px;
+    background: var(--charcoal-grey);
+    color: rgba(255, 255, 255, .5);
+    border: solid 1px var(--charcoal-grey);
+}

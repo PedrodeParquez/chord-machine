@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/base.css">
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_about.css">
-    <link rel="stylesheet" href="./src/styles/pop_up/pop_up_donate.css">
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_map.css">
     <link rel="stylesheet" href="./src/styles/sequancer.css">
+    <link rel="stylesheet" href="./src/styles/piano.css">
     <link rel="stylesheet" href="./src/fonts/dseg7/dseg7.css">
     <link rel="stylesheet" href="./src/fonts/strait/strait.css">
     <title>Chord Machine</title>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="buttons-container">
-                    <button>STOP/PLAY</button>
+                    <button id="toggle-runner">STOP/PLAY</button>
                     <button>METRO</button>
                     <button>EXPORT</button>
                 </div>
@@ -79,8 +79,70 @@
                 <button>GENERATE</button>
             </div>
         </div>
-        <div class="piano-container">
-            <img src="https://i.imgur.com/3DwuhhV.png">
+        <div class="piano">
+            <div class="piano-container">
+                <div class="whole" style="left: 0.000%;"></div>
+                <div class="half" style="left: 1.944%"></div>
+                <div class="whole" style="left: 2.778%;"></div>
+                <div class="half" style="left: 4.722%"></div>
+                <div class="whole" style="left: 5.556%;"></div>
+                <div class="whole" style="left: 8.333%;"></div>
+                <div class="half" style="left: 10.278%"></div>
+                <div class="whole" style="left: 11.111%;"></div>
+                <div class="half" style="left: 13.056%"></div>
+                <div class="whole" style="left: 13.889%;"></div>
+                <div class="half" style="left: 15.833%"></div>
+                <div class="whole" style="left: 16.667%;"></div>
+                <div class="whole" style="left: 19.444%;"></div>
+                <div class="half" style="left: 21.389%"></div>
+                <div class="whole" style="left: 22.222%;"></div>
+                <div class="half" style="left: 24.167%"></div>
+                <div class="whole" style="left: 25.000%;"></div>
+                <div class="whole" style="left: 27.778%;"></div>
+                <div class="half" style="left: 29.722%"></div>
+                <div class="whole" style="left: 30.556%;"></div>
+                <div class="half" style="left: 32.500%"></div>
+                <div class="whole" style="left: 33.333%;"></div>
+                <div class="half " style="left: 35.278%"></div>
+                <div class="whole " style="left: 36.111%;"></div>
+                <div data-key="0" class="whole " style="left: 38.889%;"></div>
+                <div data-key="1" class="half " style="left: 40.833%"></div>
+                <div data-key="2" class="whole " style="left: 41.667%;"></div>
+                <div data-key="3" class="half " style="left: 43.611%"></div>
+                <div data-key="4" class="whole " style="left: 44.444%;"></div>
+                <div data-key="5" class="whole " style="left: 47.222%;"></div>
+                <div data-key="6" class="half " style="left: 49.167%"></div>
+                <div data-key="7" class="whole " style="left: 50.000%;"></div>
+                <div data-key="8" class="half " style="left: 51.944%"></div>
+                <div data-key="9" class="whole " style="left: 52.778%;"></div>
+                <div data-key="10" class="half " style="left: 54.722%"></div>
+                <div data-key="11" class="whole " style="left: 55.556%;"></div>
+                <div data-key="12" class="whole " style="left: 58.333%;"></div>
+                <div data-key="13" class="half " style="left: 60.278%"></div>
+                <div data-key="14" class="whole " style="left: 61.111%;"></div>
+                <div data-key="15" class="half " style="left: 63.056%"></div>
+                <div data-key="16" class="whole " style="left: 63.889%;"></div>
+                <div data-key="17" class="whole " style="left: 66.667%;"></div>
+                <div data-key="18" class="half " style="left: 68.611%"></div>
+                <div data-key="19" class="whole " style="left: 69.444%;"></div>
+                <div data-key="20" class="half " style="left: 71.389%"></div>
+                <div data-key="21" class="whole " style="left: 72.222%;"></div>
+                <div data-key="22" class="half " style="left: 74.167%"></div>
+                <div data-key="23" class="whole " style="left: 75.000%;"></div>
+                <div class="whole" style="left: 77.778%;"></div>
+                <div class="half" style="left: 79.722%"></div>
+                <div class="whole" style="left: 80.556%;"></div>
+                <div class="half" style="left: 82.500%"></div>
+                <div class="whole" style="left: 83.333%;"></div>
+                <div class="whole" style="left: 86.111%;"></div>
+                <div class="half" style="left: 88.056%"></div>
+                <div class="whole" style="left: 88.889%;"></div>
+                <div class="half" style="left: 90.833%"></div>
+                <div class="whole" style="left: 91.667%;"></div>
+                <div class="half" style="left: 93.611%"></div>
+                <div class="whole" style="left: 94.444%;"></div>
+                <div class="whole" style="left: 97.222%;"></div>
+            </div>
         </div>
         <div class="sequance-container">
             <div class="number-line">
@@ -92,6 +154,7 @@
             </div>
             <div class="chords-wrapper">
                 <div class="chords-container">
+                    <div class="runner-line"></div>
                     <div class="chord" data-width="4">C#</div>
                     <div class="chord" data-width="4">F</div>
                     <div class="chord" data-width="4">B</div>
@@ -107,7 +170,7 @@
         <button id="map">MAP</button>
     </div>
 </body>
-<script src="src/scripts/script.js"></script>
+<script src="src/scripts/bpm.js"></script>
 <script src="src/scripts/sequancer.js"></script>
 <script src="src/scripts/menu.js"></script>
 </html>
