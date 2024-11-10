@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/styles/base.css">    
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_about.css">
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_map.css">
     <link rel="stylesheet" href="./src/styles/sequancer.css">
@@ -65,18 +65,18 @@
                 <div class="volume-container">
                     VOLUME
                     <div class="slidecontainer">
-                        <input type="range" min="1" max="100" value="80" class="slider" id="myRange">
+                        <input type="range" min="0" max="100" value="80" class="slider" id="myRange">
                     </div>
                 </div>
                 <div class="buttons-container">
-                    <button id="toggle-runner">STOP/PLAY</button>
-                    <button>METRO</button>
+                    <button id="stop-play-button">STOP/PLAY</button>
+                    <button id="metro-button">METRO</button>
                     <button>EXPORT</button>
                 </div>
             </div>
             <div class="bpm-container" id="bpm">120</div>
             <div class="right-container">
-                <button>GENERATE</button>
+                <button id="generate">GENERATE</button>
             </div>
         </div>
         <div class="piano">
@@ -105,30 +105,30 @@
                 <div class="whole" style="left: 33.333%;"></div>
                 <div class="half " style="left: 35.278%"></div>
                 <div class="whole " style="left: 36.111%;"></div>
-                <div data-key="0" class="whole " style="left: 38.889%;"></div>
-                <div data-key="1" class="half " style="left: 40.833%"></div>
-                <div data-key="2" class="whole " style="left: 41.667%;"></div>
-                <div data-key="3" class="half " style="left: 43.611%"></div>
-                <div data-key="4" class="whole " style="left: 44.444%;"></div>
-                <div data-key="5" class="whole " style="left: 47.222%;"></div>
-                <div data-key="6" class="half " style="left: 49.167%"></div>
-                <div data-key="7" class="whole " style="left: 50.000%;"></div>
-                <div data-key="8" class="half " style="left: 51.944%"></div>
-                <div data-key="9" class="whole " style="left: 52.778%;"></div>
-                <div data-key="10" class="half " style="left: 54.722%"></div>
-                <div data-key="11" class="whole " style="left: 55.556%;"></div>
-                <div data-key="12" class="whole " style="left: 58.333%;"></div>
-                <div data-key="13" class="half " style="left: 60.278%"></div>
-                <div data-key="14" class="whole " style="left: 61.111%;"></div>
-                <div data-key="15" class="half " style="left: 63.056%"></div>
-                <div data-key="16" class="whole " style="left: 63.889%;"></div>
-                <div data-key="17" class="whole " style="left: 66.667%;"></div>
-                <div data-key="18" class="half " style="left: 68.611%"></div>
-                <div data-key="19" class="whole " style="left: 69.444%;"></div>
-                <div data-key="20" class="half " style="left: 71.389%"></div>
-                <div data-key="21" class="whole " style="left: 72.222%;"></div>
-                <div data-key="22" class="half " style="left: 74.167%"></div>
-                <div data-key="23" class="whole " style="left: 75.000%;"></div>
+                <div id="C" class="whole " style="left: 38.889%;"></div>
+                <div id="C#" class="half " style="left: 40.833%"></div>
+                <div id="D" class="whole " style="left: 41.667%;"></div>
+                <div id="D#" class="half " style="left: 43.611%"></div>
+                <div id="E" class="whole " style="left: 44.444%;"></div>
+                <div id="F" class="whole " style="left: 47.222%;"></div>
+                <div id="F#" class="half " style="left: 49.167%"></div>
+                <div id="G" class="whole " style="left: 50.000%;"></div>
+                <div id="G#" class="half " style="left: 51.944%"></div>
+                <div id="A" class="whole " style="left: 52.778%;"></div>
+                <div id="A#" class="half " style="left: 54.722%"></div>
+                <div id="B" class="whole " style="left: 55.556%;"></div>
+                <div id="C1" class="whole " style="left: 58.333%;"></div>
+                <div id="C#1" class="half " style="left: 60.278%"></div>
+                <div id="D1" class="whole " style="left: 61.111%;"></div>
+                <div id="D#1" class="half " style="left: 63.056%"></div>
+                <div id="E1" class="whole " style="left: 63.889%;"></div>
+                <div id="F1" class="whole " style="left: 66.667%;"></div>
+                <div id="F#1" class="half " style="left: 68.611%"></div>
+                <div id="G1" class="whole " style="left: 69.444%;"></div>
+                <div id="G#1" class="half " style="left: 71.389%"></div>
+                <div id="A1" class="whole " style="left: 72.222%;"></div>
+                <div id="A#1" class="half " style="left: 74.167%"></div>
+                <div id="B1" class="whole " style="left: 75.000%;"></div>
                 <div class="whole" style="left: 77.778%;"></div>
                 <div class="half" style="left: 79.722%"></div>
                 <div class="whole" style="left: 80.556%;"></div>
@@ -155,22 +155,18 @@
             <div class="chords-wrapper">
                 <div class="chords-container">
                     <div class="runner-line"></div>
-                    <div class="chord" data-width="4">C#</div>
-                    <div class="chord" data-width="4">F</div>
-                    <div class="chord" data-width="4">B</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="menu-buttons">
         <button id="about">ABOUT</button>
-        <button>
-            <a href="https://yoomoney.ru/to/4100118877719014">DONATE</a>
-        </button>
+        <button><a target="_blank" href="https://yoomoney.ru/to/4100118877719014">DONATE</a></button>
         <button id="map">MAP</button>
     </div>
 </body>
-<script src="src/scripts/bpm.js"></script>
-<script src="src/scripts/sequancer.js"></script>
+<script type="module" src="src/scripts/bpm.js"></script>
+<script type="module" src="src/scripts/sequancer/chord.js"></script>
+<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 <script src="src/scripts/menu.js"></script>
 </html>
