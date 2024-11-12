@@ -1,12 +1,24 @@
-import { bpmContainer } from '../bpm.js';
-import { play } from './runner_line.js';
+import { bpm } from '../sequancer/bpm.js';
+import { play } from '../sequancer/runner_line.js';
 
-let chords = document.querySelectorAll('.chord');                    // Находим все элементы с классом 'chord'
-const chordsContainer = document.querySelector('.chords-container'); // Находим контейнер аккордов  
+export let chords = document.querySelectorAll('.chord');                    // Находим все элементы с классом 'chord'
+export const chordsContainer = document.querySelector('.chords-container'); // Находим контейнер аккордов  
+export const containerWidth = chordsContainer.offsetWidth;                  // Получаем ширину контейнера
+export const gridSize = containerWidth / 16;                                // Вычисляем размер одной ячейки сетки (контейнер делится на 16 частей)
+
 const stopStartButton = document.getElementById('stop-play-button'); // Находим кнопку для запуска и остановки анимации
 const generateButton = document.getElementById('generate');          // Находим кнопку для генерации аккордов
-export const containerWidth = chordsContainer.offsetWidth;           // Получаем ширину контейнера
-const gridSize = containerWidth / 16;                                // Вычисляем размер одной ячейки сетки (контейнер делится на 16 частей)
+
+export function getNewChord() {
+    const chordNames = ["C#", "Dm", "Em", "F", "G", "A", "B"];
+    const randomName = chordNames[Math.floor(Math.random() * chordNames.length)];
+    const randomNotes = [
+        new Note("C", "sound/piano/c_1.ogg"),
+        new Note("E", "sound/piano/e_1.ogg"),
+        new Note("G", "sound/piano/g_1.ogg")
+    ];
+    return new Chord(randomName, randomNotes);
+}
 
 class Note {
     constructor(name, path) {
@@ -21,16 +33,31 @@ class Chord {
         this.notes = notes;
     }
 
-    initial(name) {
+    init(name) {
         const newChordHTML = `<div class="chord" data-width="4">${name}
             <div class="resizer-right"></div>
             <div class="resizer-left"></div>
         </div>`;
+        
         chordsContainer.insertAdjacentHTML('beforeend', newChordHTML);
     }
 }
 
+export function updateChords() {
+    chords = document.querySelectorAll('.chord');
+    
+    chords.forEach((chord, index) => {
+        const chordWidth = parseInt(chord.dataset.width, 10) * gridSize;  // Вычисляем ширину аккорда, умножая значение из data-width на размер ячейки
+        chord.style.width = `${chordWidth}px`;                            // Устанавливаем ширину аккорда
+        chord.style.left = `${index * chordWidth}px`;                     // Устанавливаем позицию аккорда
+    });
+}
+
 generateButton.addEventListener('click', () => {
+    if (chords != []) {
+        chords.forEach(chord => chord.remove());
+    }
+
     let notes1 = [
         new Note("C", "sound/piano/c_1.ogg"),
         new Note("E", "sound/piano/e_1.ogg"),
@@ -55,29 +82,21 @@ generateButton.addEventListener('click', () => {
     let chord2 = new Chord("G 9th", notes2);
     let chord3 = new Chord("F", notes3);
 
-    chord1.initial(chord1.name);
-    chord2.initial(chord2.name);
-    chord3.initial(chord3.name);
+    chord1.init(chord1.name);
+    chord2.init(chord2.name);
+    chord3.init(chord3.name);
 
-    chords = document.querySelectorAll('.chord');
-
-    chords.forEach((chord, index) => {
-        const chordWidth = parseInt(chord.dataset.width, 10) * gridSize;  // Вычисляем ширину аккорда, умножая значение из data-width на размер ячейки
-        chord.style.width = `${chordWidth}px`;                            // Устанавливаем ширину аккорда
-        chord.style.left = `${index * chordWidth}px`;                     // Устанавливаем позицию аккорда
-    });
-
-    addEventListenersToChords(); // Добавляем обработчики событий для аккордов
+    updateChords();
+    addEventListenersToChords();
 });
 
 // Обработчик для кнопки запуска/остановки анимации
 stopStartButton.addEventListener('click', () => {
     stopStartButton.classList.toggle('active');
-    const bpm = parseInt(bpmContainer.textContent, 10);  // Получаем значение BPM из контейнера
     play(bpm);
 });
 
-function addEventListenersToChords() {
+export function addEventListenersToChords() {
     chords.forEach(item => {
         const resizerRight = item.querySelector('.resizer-right');
         const resizerLeft = item.querySelector('.resizer-left');
@@ -86,39 +105,41 @@ function addEventListenersToChords() {
         resizerRight.addEventListener('mousedown', (e) => {
             e.preventDefault();
             e.stopPropagation();
-
+        
             const initialX = e.clientX;  // Начальная позиция курсора по оси X
             const initialWidth = item.getBoundingClientRect().width;  // Начальная ширина аккорда
-
+        
             const onMouseMove = (e) => {
                 const deltaX = e.clientX - initialX;  // Изменение позиции курсора по оси X
                 const newWidth = initialWidth + deltaX;  // Новая ширина аккорда
-
+        
                 const gridSpan = Math.round(newWidth / gridSize);  // Количество ячеек, занимаемых новой шириной
                 const nearestGridColumn = Math.round(parseFloat(item.style.left) / gridSize);  // Ближайшая колонка сетки
-
+        
+                const maxWidth = containerWidth - parseFloat(item.style.left);  // Максимальная ширина аккорда, чтобы не выйти за пределы контейнера
+        
                 const collision = checkCollision(nearestGridColumn, gridSpan, item);  // Проверяем на столкновения
-                if (!collision && gridSpan > 0 && gridSpan <= 16) {  // Если нет столкновений и новая ширина валидна
+                if (!collision && newWidth <= maxWidth && gridSpan > 0 && gridSpan <= 16) {  // Если нет столкновений и новая ширина валидна
                     item.style.width = `${newWidth}px`;  // Устанавливаем новую ширину аккорда
                 }
             };
-
+        
             const onMouseUp = () => {
                 document.removeEventListener('mousemove', onMouseMove);  // Удаляем обработчик движения мыши
-
+        
                 const finalWidth = item.getBoundingClientRect().width;  // Финальная ширина аккорда
                 const gridSpan = Math.round(finalWidth / gridSize);  // Количество ячеек, занимаемых финальной шириной
                 const nearestGridWidth = gridSpan * gridSize;  // Ближайшая ширина сетки
                 const nearestColumn = Math.round(parseFloat(item.style.left) / gridSize);  // Ближайшая колонка сетки
-
+        
                 const collision = checkCollision(nearestColumn, gridSpan, item);  // Проверяем на столкновения
                 if (!collision && gridSpan > 0 && gridSpan <= 16) {  // Если нет столкновений и финальная ширина валидна
                     item.style.width = `${nearestGridWidth}px`;  // Устанавливаем финальную ширину аккорда
                 }
-
+        
                 document.removeEventListener('mouseup', onMouseUp);  // Удаляем обработчик отпускания мыши
             };
-
+        
             document.addEventListener('mousemove', onMouseMove);  // Добавляем обработчик движения мыши
             document.addEventListener('mouseup', onMouseUp);  // Добавляем обработчик отпускания мыши
         });
@@ -230,7 +251,5 @@ function checkCollision(column, width, currentChord) {
         }
     });
 
-    return collision;  // Возвращаем результат проверки
+    return collision;
 }
-
-document.addEventListener('DOMContentLoaded', addEventListenersToChords);

@@ -69,24 +69,20 @@
     transition: width 0.1s ease, left 0.1s ease;
 }
 
-.add-chord-button {
-    display: flex;
+.add-button {
+    display: none;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 144, 76, 0.8);
-    color: var(--light-beige);
-    font-size: 60px;
     cursor: pointer;
-    height: 70%;
-    width: calc(100% / 4);
     position: absolute;
+    height: 70%;
+    width: calc(100% / 8);
+    background: rgba(255, 144, 76, 0.8);
+    font-size: 60px;
     top: 50%;
+    color: var(--light-beige);
     transform: translateY(-50%);
     transition: width 0.1s ease, left 0.1s ease;
-}
-
-.add-chord-button.hidden {
-    display: none;
 }
 
 .resizer-right {
@@ -116,6 +112,7 @@
     width: 5px;
     height: 100%;
     background: var(--vibrant-orange);
+    cursor: pointer;
     z-index: 1;
     transition: width 0.1s ease, left 0.1s ease;
 }
