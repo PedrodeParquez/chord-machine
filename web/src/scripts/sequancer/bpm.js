@@ -1,11 +1,12 @@
 import { isRunning } from "./runner_line.js";
 
 const bpmContainer = document.getElementById('bpm');
+const metronomeButton = document.getElementById('metro-button');
+let metronomeInterval = null;    
+
 export let metronomeAudio = new Audio('src/sound/bpm-tick.ogg');
 export let isMetronomeOn = false;
-export let bpm = parseInt(bpmContainer.innerText);
-const metronomeButton = document.getElementById('metro-button');
-let metronomeInterval = null;                              
+export let bpm = parseInt(bpmContainer.innerText);                          
 
 bpmContainer.addEventListener('wheel', function(event) {
     if (event.deltaY < 0) {
@@ -21,27 +22,33 @@ bpmContainer.addEventListener('wheel', function(event) {
     }
 
     bpmContainer.innerText = bpm;
-    console.log(bpm);
 });
 
-// Метроном
+metronomeButton.addEventListener('click', toggleMetronome);
+
 export function toggleMetronome() {
-    if (metronomeButton.classList.contains('active') && !isRunning) {
+    if (metronomeButton.classList.contains('active')) {
         metronomeButton.classList.remove('active');
-        clearInterval(metronomeInterval);
+        stopMetronome();
         isMetronomeOn = false;
-        console.log("isMetronomeOn: " + isMetronomeOn);
         return;
     }
 
     metronomeButton.classList.add('active');
-    metronomeInterval = setInterval(() => { metronomeAudio.play(); }, 60000 / bpm);  
-    isMetronomeOn = true;
-    console.log("isMetronomeOn: " + isMetronomeOn);  
-}
-  
+    if (isRunning) { 
+        startMetronome();
+    }
 
-metronomeButton.addEventListener('click', toggleMetronome);
+    isMetronomeOn = true;
+}
+
+export function stopMetronome() {
+    clearInterval(metronomeInterval);
+}
+
+export function startMetronome() {
+    metronomeInterval = setInterval(() => { metronomeAudio.play(); }, 60000 / bpm);  
+}
 
 
 

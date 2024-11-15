@@ -3,19 +3,6 @@
     background: transparent;
 }
 
-.number-line {
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 5px;
-    margin-bottom: 10px;
-    color: var(--light-beige);
-    justify-content: space-between;
-    background: var(--charcoal-grey);
-}
-
 .chords-wrapper {
     background: var(--charcoal-grey);
     padding: 0 10px;
@@ -54,55 +41,17 @@
     pointer-events: none;
 }
 
-.chord {
+.number-line {
     display: flex;
+    flex-direction: row;
+    height: 30px;
     justify-content: center;
     align-items: center;
-    background: var(--taupe);
-    font-size: 40px;
-    cursor: pointer;
-    height: 70%;
-    width: calc(100% / 4);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: width 0.1s ease, left 0.1s ease;
-}
-
-.add-button {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: absolute;
-    height: 70%;
-    width: calc(100% / 8);
-    background: rgba(255, 144, 76, 0.8);
-    font-size: 60px;
-    top: 50%;
+    padding: 0px 5px;
+    margin-bottom: 10px;
     color: var(--light-beige);
-    transform: translateY(-50%);
-    transition: width 0.1s ease, left 0.1s ease;
-}
-
-.resizer-right {
-    width: 2px;
-    height: 100%;
-    background: var(--light-beige);
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: ew-resize;
-}
-    
-.resizer-left {
-    width: 2px;
-    height: 100%;
-    background: var(--light-beige);
-    position: absolute;
-    left: 0;
-    top: 0;
-    cursor: ew-resize;
+    justify-content: space-between;
+    background: var(--charcoal-grey);
 }
 
 .runner-line {
