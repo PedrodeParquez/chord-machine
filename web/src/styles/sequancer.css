@@ -3,21 +3,6 @@
     background: transparent;
 }
 
-.number-line {
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 8px;
-    font-family: 'Strait';
-    font-size: 25px;
-    margin-bottom: 10px;
-    color: var(--light-beige);
-    justify-content: space-between;
-    background: var(--charcoal-grey);
-}
-
 .chords-wrapper {
     background: var(--charcoal-grey);
     padding: 0 10px;
@@ -56,48 +41,27 @@
     pointer-events: none;
 }
 
-.chord {
+.number-line {
     display: flex;
+    flex-direction: row;
+    height: 30px;
     justify-content: center;
     align-items: center;
-    background: var(--taupe);
-    font-size: 40px;
-    cursor: pointer;
-    height: 80%;
-    width: calc(100% / 4 - 2px);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: width 0.1s ease, left 0.1s ease;
-}
-
-.resizer {
-    width: 2px;
-    height: 100%;
-    background: var(--light-beige);
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: ew-resize;
-}
-    
-.resizer-left {
-    width: 2px;
-    height: 100%;
-    background: var(--light-beige);
-    position: absolute;
-    left: 0;
-    top: 0;
-    cursor: ew-resize;
+    padding: 0px 5px;
+    margin-bottom: 10px;
+    color: var(--light-beige);
+    justify-content: space-between;
+    background: var(--charcoal-grey);
 }
 
 .runner-line {
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
+    width: 5px;
     height: 100%;
     background: var(--vibrant-orange);
-    z-index: 10;
-    transition: width 0.2s ease, left 0.2s ease;
+    cursor: pointer;
+    z-index: 1;
+    transition: width 0.1s ease, left 0.1s ease;
 }

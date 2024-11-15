@@ -2,7 +2,9 @@
     --light-beige: #EEDFC2;
     --taupe: #C1AE8D;
     --vibrant-orange: #FF904C;
+    --vibrant-orange-hover: #E68045;
     --charcoal-grey: #525249;
+    --charcoal-grey-hover: #4A4842;
     --warm-brown: #887A5F;
     --dark-maroon: #89192D;
     --bright-red: #FF002D; 
@@ -16,8 +18,8 @@ body {
     color: var(--charcoal-grey);
     -webkit-user-select: none;
     font-family: 'Strait';
+    font-size: 25px;
     position: fixed;
-    font-weight: normal;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -45,7 +47,6 @@ body {
     padding: 10px 15px;
     flex-direction: row;
     display: flex;
-    font-size: 25px;
     color: var(--light-beige);
     background-color: var(--charcoal-grey);
     gap: 10px;
@@ -55,12 +56,12 @@ body {
     flex-direction: row;
     gap: 10px;
     display: flex;
-    font-family: 'Strait';
 }
 
 .key-container select {
     text-align: center;
     appearance: none;
+    user-select: none;
     outline: none;
     font-size: 18px;
     font-family: 'Strait';
@@ -69,6 +70,10 @@ body {
     flex-direction: row;
     display: flex;
     width: 50px;
+}
+
+.key-container select option {
+    user-select: none;
 }
 
 .scale-container {
@@ -136,7 +141,6 @@ body {
     justify-content: space-between;
     margin-top: 10px;
     gap: 10px;
-    font-size: 25px;
     flex-direction: row;
     display: flex;
     color: var(--light-beige);
@@ -218,6 +222,21 @@ body {
     padding: 0px 25px;
 }
 
+.buttons-container button:hover {
+    color: var(--charcoal-grey-hover);
+    background: var(--vibrant-orange-hover);
+    border: 10px solid var(black);
+}
+
+.buttons-container button.active {
+    color: var(--charcoal-grey-hover);
+    background: var(--vibrant-orange-hover);
+    border: 10px solid var(black);
+}
+
+.bpm-text {
+    padding-right: 15px;
+}
 
 .bpm-container {
     width: 90px;
@@ -249,8 +268,9 @@ body {
     background: var(--vibrant-orange);
 }
 
-.bpm-text {
-    padding-right: 15px;
+.right-container button:hover {
+    color: var(--charcoal-grey-hover);
+    background: var(--vibrant-orange-hover);
 }
 
 .menu-buttons {
@@ -267,6 +287,11 @@ body {
     color: var(--charcoal-grey);
     font-family: 'Strait';
     background: var(--vibrant-orange);
+}
+
+.menu-buttons button:hover {
+    color: var(--charcoal-grey-hover);
+    background: var(--vibrant-orange-hover);
 }
 
 .menu-buttons a {
