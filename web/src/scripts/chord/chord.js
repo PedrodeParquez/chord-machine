@@ -11,6 +11,30 @@ class Note {
     constructor(name, path) {
         this.name = name;
         this.path = path;
+        this.sound = new Howl({ src: [path] });
+        this.key = path.split('/').pop().split('.').shift()
+    }
+
+    play() {
+        this.sound.play();
+    }
+
+    stop() {
+        this.sound.stop();
+    }
+
+    highlight() {
+        const keyElement = document.getElementById(this.key);
+            if (keyElement) {
+                keyElement.classList.add('active');
+            }
+    }
+
+    unhighlight() {
+        const keyElement = document.getElementById(this.key);
+        if (keyElement) {
+            keyElement.classList.remove('active');
+        }
     }
 }
 
@@ -20,6 +44,7 @@ class Chord {
         this.notes = notes;
         this.length = length;
         this.leftPosition = leftPosition;
+        this.isPlaying = false;
     }
 
     init() {
@@ -29,6 +54,18 @@ class Chord {
         </div>`;
         
         chordsContainer.insertAdjacentHTML('beforeend', newChordHTML);
+        const chordElement = chordsContainer.lastElementChild;
+        chordElement.chordObject = this;
+    }
+
+    playNotes() {
+        this.notes.forEach(note => { note.play(); note.highlight(); });
+        this.isPlaying = true;
+    }
+
+    stopNotes() {
+        this.notes.forEach(note => { note.stop(), note.unhighlight()});
+        this.isPlaying = false;
     }
 }
 
@@ -42,39 +79,45 @@ export function initChords() {
     let notes2 = [
         new Note("G", "sound/piano/g_1.ogg"),
         new Note("B", "sound/piano/b_1.ogg"),
-        new Note("D", "sound/piano/d_2.ogg"),
-        new Note("F", "sound/piano/f_2.ogg"),
-        new Note("A", "sound/piano/a_2.ogg")
+        new Note("D", "sound/piano/d_2.ogg")
     ];
 
     let notes3 = [
+        new Note("A", "sound/piano/a_1.ogg"),
+        new Note("C", "sound/piano/c_2.ogg"),
+        new Note("E", "sound/piano/e_2.ogg")
+    ];
+
+    let notes4 = [
         new Note("F", "sound/piano/f_1.ogg"),
         new Note("A", "sound/piano/a_1.ogg"),
         new Note("C", "sound/piano/c_2.ogg")
     ];
 
-    let chord1 = new Chord("C", notes1, 2, 0);
-    let chord2 = new Chord("G 9th", notes2, 3, 110);
-    let chord3 = new Chord("F", notes3, 4, 275);
+    let chord1 = new Chord("C", notes1, 4, 0);
+    let chord2 = new Chord("G", notes2, 4, 220);
+    let chord3 = new Chord("Am", notes3, 4, 440);
+    let chord4 = new Chord("F", notes4, 4, 660);
 
     chord1.init();
     chord2.init();
     chord3.init();
+    chord4.init();
 
     updateChords();
     eventListenersChords();
 }
 
 export function getNewChord(length, leftPosition) {
-    const chordNames = ["C#", "Dm", "Em", "F", "G", "A", "B"];
+    const chordNames = ["C", "D", "E", "F", "G", "A", "B"];
     const randomName = chordNames[Math.floor(Math.random() * chordNames.length)];
-    const randomNotes = [
-        new Note("C", "sound/piano/c_1.ogg"),
-        new Note("E", "sound/piano/e_1.ogg"),
-        new Note("G", "sound/piano/g_1.ogg")
+    const newNotes = [
+        new Note("D", "sound/piano/d_1.ogg"),
+        new Note("F", "sound/piano/f_1.ogg"),
+        new Note("A", "sound/piano/a_1.ogg")
     ];
 
-    return new Chord(randomName, randomNotes, length, leftPosition);
+    return new Chord("Dm", newNotes, length, leftPosition);
 }
 
 export function updateChords() {

@@ -42,4 +42,7 @@
     border: solid 1px var(--charcoal-grey);
 }
 
-
+.piano .active {
+    background: var(--vibrant-orange);
+    
+}
