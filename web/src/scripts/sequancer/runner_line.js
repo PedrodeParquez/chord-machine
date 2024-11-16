@@ -1,4 +1,4 @@
-import { containerWidth } from '../chord/chord.js';
+import { containerWidth, chords } from '../chord/chord.js';
 import { isMetronomeOn, startMetronome, stopMetronome } from './bpm.js';
 
 export const runnerLine = document.querySelector('.runner-line'); 
@@ -29,6 +29,7 @@ function startRunnerLine(tempo) {
         runnerLine.style.left = `${position}px`;
         lastTimestamp = timestamp;
         animationFrameId = requestAnimationFrame(moveRunnerLine);
+        checkChordPlayback();
     }
 
     animationFrameId = requestAnimationFrame(moveRunnerLine);
@@ -53,6 +54,7 @@ export function run(bpm) {
 function stopRunnerLine() {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;                 
+    stopAllChords();
 }
 
 let isDragging = false; 
@@ -67,7 +69,6 @@ runnerLine.addEventListener('mousedown', (e) => {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 });
-
 
 function onMouseMove(e) {
     if (isDragging) {
@@ -90,4 +91,33 @@ function onMouseUp() {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
     }
+}
+
+function checkChordPlayback() {
+    const runnerPosition = parseFloat(runnerLine.style.left) || 0;
+
+    chords.forEach(chordElement => {
+        const chord = chordElement.chordObject;
+        const chordLeft = parseFloat(chordElement.style.left) || 0;
+        const chordRight = chordLeft + parseFloat(chordElement.style.width) || 0;
+
+        if (runnerPosition >= chordLeft && runnerPosition < chordRight) {
+            if (!chord.isPlaying) {
+                chord.playNotes();
+            }
+        } else {
+            if (chord.isPlaying) {
+                chord.stopNotes();
+            }
+        }
+    });
+}
+
+function stopAllChords() {
+    chords.forEach(chordElement => {
+        const chord = chordElement.chordObject;
+        if (chord.isPlaying) {
+            chord.stopNotes();
+        }
+    });
 }
