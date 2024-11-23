@@ -1,4 +1,4 @@
-import { containerWidth, chords } from '../chord/chord.js';
+import { containerWidth, visibleChords } from '../chord/chord.js';
 import { isMetronomeOn, startMetronome, stopMetronome } from './bpm.js';
 
 export const runnerLine = document.querySelector('.runner-line'); 
@@ -96,7 +96,7 @@ function onMouseUp() {
 function checkChordPlayback() {
     const runnerPosition = parseFloat(runnerLine.style.left) || 0;
 
-    chords.forEach(chordElement => {
+    visibleChords.forEach(chordElement => {
         const chord = chordElement.chordObject;
         const chordLeft = parseFloat(chordElement.style.left) || 0;
         const chordRight = chordLeft + parseFloat(chordElement.style.width) || 0;
@@ -114,7 +114,7 @@ function checkChordPlayback() {
 }
 
 function stopAllChords() {
-    chords.forEach(chordElement => {
+    visibleChords.forEach(chordElement => {
         const chord = chordElement.chordObject;
         if (chord.isPlaying) {
             chord.stopNotes();

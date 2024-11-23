@@ -35,7 +35,7 @@ var chordTypes = [][]int{
 	{4, 3, 3},    // 7th
 	{4, 4, 2},    // 7th #5
 	{4, 3, 3, 4}, // 9th
-	{3, 3},       // diminished
+	{3, 3},       // dim
 	{4, 4},       // augmented
 	{2, 5},       // sus2
 	{5, 2},       // sus4
@@ -48,14 +48,21 @@ var chordNames = []string{
 	"major", "major 7th", "major 9th",
 	"minor", "minor 6th", "minor 7th", "minor 7th b5", "minor 9th",
 	"6th", "7th", "7th #5", "9th",
-	"diminished", "augmented", "sus2", "sus4", "7th #9 'Hendrix'", "5th 'power'",
+	"dim", "augmented", "sus2", "sus4", "7th #9 'Hendrix'", "5th 'power'",
 }
 
 // Наборы аккордов для жанров
-var All = []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
-var Jazz = []int{5, 7, 9, 12, 3, 10}
+var All = []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18}
+var Jass = []int{5, 7, 9, 12, 3, 10}
 var Pop = []int{0, 1, 9, 8}
 var Rock = []int{0, 1, 13, 10, 11}
+
+var GenreMap = map[string][]int{
+	"Jass": Jass,
+	"Pop":  Pop,
+	"Rock": Rock,
+	"All":  All,
+}
 
 // Функция для поиска индекса ноты в массиве notes
 func findScale(input string) int {

@@ -4,7 +4,7 @@ const bpmContainer = document.getElementById('bpm');
 const metronomeButton = document.getElementById('metro-button');
 let metronomeInterval = null;    
 
-export let metronomeAudio = new Audio('sound/bpm-tick.ogg');
+export let metronomeAudio = new Audio('src/sound/bpm-tick.ogg');
 export let isMetronomeOn = false;
 export let bpm = parseInt(bpmContainer.innerText);                          
 

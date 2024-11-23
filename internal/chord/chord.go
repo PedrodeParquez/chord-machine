@@ -3,26 +3,22 @@ package chord
 import (
 	"chord-machine/internal/utils"
 	"fmt"
-	"math/rand"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
-// Структура для представления аккорда
 type Note struct {
 	Name string
 	Path string
 }
 
-// Структура для представления аккорда
 type Chord struct {
 	Name  string
 	Notes []Note
 }
 
 // Функция для генерации возможных аккордов и текущей гаммы
-func GeneratePossibleChords(key, scale, instrument string, genre []int) ([]Chord, []string) {
+func GeneratePossibleChords(key, scale, instrument string, genre []int) []Chord {
 	scaleType := -1 // Переменная для хранения типа гаммы
 	offset := 0     // Счетчик для интервалов гаммы
 
@@ -69,7 +65,7 @@ func GeneratePossibleChords(key, scale, instrument string, genre []int) ([]Chord
 				// Заполняем массив нот аккорда с учетом пути
 				chordNotes[n] = Note{
 					Name: currentNote,
-					Path: filepath.Join("sound", instrument, noteFileName),
+					Path: filepath.Join("src", "sound", instrument, noteFileName),
 				}
 
 				if n < len(chord) {
@@ -77,8 +73,35 @@ func GeneratePossibleChords(key, scale, instrument string, genre []int) ([]Chord
 				}
 			}
 
-			// Если все ноты аккорда присутствуют в гамме и аккорд соответствует myWanted, добавляем аккорд
+			// Если все ноты аккорда присутствуют в гамме и аккорд соответствует жанру, добавляем аккорд
 			if utils.AllTrue(temp) && utils.ContainsInt(genre, i) {
+				if chordNames[i] == "major" {
+					possibleChords = append(possibleChords, Chord{
+						Name:  note,
+						Notes: chordNotes,
+					})
+
+					continue
+				}
+
+				if chordNames[i] == "minor" && note[len(note)-1] == '#' {
+					possibleChords = append(possibleChords, Chord{
+						Name:  strings.Replace(note, "#", "", 1) + "m#",
+						Notes: chordNotes,
+					})
+
+					continue
+				}
+
+				if chordNames[i] == "minor" {
+					possibleChords = append(possibleChords, Chord{
+						Name:  note + "m",
+						Notes: chordNotes,
+					})
+
+					continue
+				}
+
 				possibleChords = append(possibleChords, Chord{
 					Name:  note + " " + chordNames[i],
 					Notes: chordNotes,
@@ -87,44 +110,5 @@ func GeneratePossibleChords(key, scale, instrument string, genre []int) ([]Chord
 		}
 	}
 
-	return possibleChords, currentScale
-}
-
-// Функция для генерации прогрессии аккордов
-func GenerateProgression(possibleChords []Chord, lengths []float64, instrument string) []Chord {
-	// Инициализация генератора случайных чисел
-	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
-
-	randNumbers := make([]int, len(lengths))   // Массив для хранения случайных индексов аккордов
-	progression := make([]Chord, len(lengths)) // Массив для хранения аккордовой прогрессии
-
-	// Инициализируем массив случайных чисел значением -1
-	for i := range randNumbers {
-		randNumbers[i] = -1
-	}
-
-	// Генерация случайных индексов для выбора аккордов из списка возможных аккордов
-	for i := range randNumbers {
-		newRand := rng.Intn(len(possibleChords)) // Генерируем случайный индекс
-		if i == 0 {
-			randNumbers[i] = newRand // Для первого элемента просто присваиваем
-		} else {
-			// Проверка, не использовался ли уже этот индекс в прогрессии
-			for utils.ContainsInt(randNumbers[:i], newRand) && (len(possibleChords)-(i+1) > 0) {
-				newRand = rng.Intn(len(possibleChords)) // Если использован, генерируем новый индекс
-			}
-			randNumbers[i] = newRand // Присваиваем новый уникальный индекс
-		}
-	}
-
-	// Заполнение прогрессии аккордами на основе случайных индексов
-	for i := range progression {
-		chord := possibleChords[randNumbers[i]]
-		progression[i] = Chord{
-			Name:  chord.Name,
-			Notes: chord.Notes,
-		}
-	}
-
-	return progression
+	return possibleChords
 }

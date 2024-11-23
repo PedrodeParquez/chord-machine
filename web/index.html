@@ -21,7 +21,7 @@
         <div class="panel-settings">
             <div class="key-container">
                 KEY
-                <select>
+                <select id="key-select">
                     <option value="C">C</option>
                     <option value="C#">C#</option>
                     <option value="D">D</option>
@@ -38,28 +38,29 @@
             </div>
             <div class="scale-container">
                 SCALE
-                <select>
-                    <option value="Major">MAJOR</option>
-                    <option value="Minor">MINOR</option>
-                    <option value="Major-Harmonic">MAJOR HARMONIC</option>
-                    <option value="Minor-Harmonic">MINOR HARMONIC</option>
+                <select id="scale-select">
+                    <option value="major">MAJOR</option>
+                    <option value="minor">MINOR</option>
+                    <option value="harmonicMinor">HARMONIC MINOR</option>
+                    <option value="melodicMinor">MELODIC MINOR</option>
                 </select>
             </div>
             <div class="instrument-container">
                 INSTRUMENT
-                <select>
-                    <option value="Piano">PIANO</option>
-                    <option value="Acoustic-Guitar">ACOUSTIC GUITAR</option>
-                    <option value="Distortion-Guitar">DIST GUITAR</option>
+                <select id="instrument-select"> 
+                    <option value="piano">PIANO</option>
+                    <option value="acoustic-guitar">ACOUSTIC GUITAR</option>
+                    <option value="distortion-guitar">DIST GUITAR</option>
                 </select>
             </div>
             <div class="bpm-text">TEMPO</div>
             <div class="genre-container">
                 GENRE
-                <select>
+                <select id="genre-select">
+                    <option value="All">All</option>
                     <option value="Pop">POP</option>
                     <option value="Rock">ROCK</option>
-                    <option value="Rock">JASS</option>
+                    <option value="Jass">JASS</option>
                 </select>
             </div>
         </div>

@@ -1,4 +1,6 @@
-import { chordsContainer, gridSize, chords, getNewChord, eventListenersChords, updateChords } from './chord.js';
+import { chordsContainer, gridSize, visibleChords, eventListenersChords, updateChords } from './chord.js';
+import { getNewChord } from '../sequancer/sequancer.js';
+import { save } from '../local_storage.js';
 
 const addChordButton = document.querySelector('.add-button');
 let col = 4;
@@ -14,9 +16,9 @@ chordsContainer.addEventListener('mousemove', (e) => {
 
     let availableColumns = maxColumns;
 
-    chords.forEach(chord => {
-        const chordLeft = parseFloat(chord.style.left) || 0;
-        const chordRight = chordLeft + parseFloat(chord.style.width);
+    visibleChords.forEach(visibleChords => {
+        const chordLeft = parseFloat(visibleChords.style.left) || 0;
+        const chordRight = chordLeft + parseFloat(visibleChords.style.width);
 
         if (addChordButtonLeft >= chordLeft && addChordButtonLeft < chordRight || mouseX < 0) {
             isCollisionAddButton = true;
@@ -46,4 +48,6 @@ addChordButton.addEventListener('click', () => {
     newChord.init();
     updateChords();
     eventListenersChords();
+
+    save('visibleChords');
 });
