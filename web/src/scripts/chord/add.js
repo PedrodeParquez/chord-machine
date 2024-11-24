@@ -1,6 +1,7 @@
 import { chordsContainer, gridSize, visibleChords, eventListenersChords, updateChords } from './chord.js';
-import { getNewChord } from '../sequancer/sequancer.js';
+import { getNewChord, possibleChords } from '../sequancer/sequancer.js';
 import { save } from '../local_storage.js';
+import { menuButtons, closePopUp } from '../footer_menu.js';
 
 const addChordButton = document.querySelector('.add-button');
 let col = 4;
@@ -44,10 +45,58 @@ chordsContainer.addEventListener('mouseleave', () => {
 });
 
 addChordButton.addEventListener('click', () => {
-    let newChord = getNewChord(col, parseFloat(addChordButton.style.left));
-    newChord.init();
-    updateChords();
-    eventListenersChords();
-
-    save('visibleChords');
+    openPopUpAddChords();
 });
+
+function openPopUpAddChords() {
+    const popUpAddChordHTML = `
+    <div id="pop-up-add" class="pop-up-background">
+        <div class="pop-up-container-add">
+            <h1>CHOOSE CHORD</h1>
+            <div class="pop-up-container-add-panel">
+                <select id="chord-select">
+                </select>
+                <button id="add">ADD</button>
+            </div>
+        </div>
+    </div>`;
+    
+    menuButtons.insertAdjacentHTML('afterend', popUpAddChordHTML);
+
+    const chordSelect = document.getElementById('chord-select');
+    addChordsToSelect(chordSelect, possibleChords);
+
+    const addButton = document.getElementById('add');
+
+    addButton.onclick = function(e) {
+        e.preventDefault();
+
+        const selectedChord = chordSelect.value;
+
+        let newChord = getNewChord(selectedChord, 4, parseFloat(addChordButton.style.left));
+        if (newChord) {
+            newChord.init();
+            updateChords();
+            eventListenersChords();
+
+            save('visibleChords');
+        }
+        
+        const popUp = document.getElementById('pop-up-add');
+        
+        popUp.remove();
+    };
+
+    document.getElementById('pop-up-add').addEventListener('click', closePopUp);
+}
+
+function addChordsToSelect(selectElement, chords) {
+    chords.forEach(chord => {
+        if (chord && chord.Name) {
+            const option = document.createElement('option');
+            option.value = chord.Name;
+            option.textContent = chord.Name;
+            selectElement.appendChild(option);
+        }
+    });
+}

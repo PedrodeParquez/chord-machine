@@ -1,4 +1,4 @@
-const menuButtons = document.querySelector('.menu-buttons');
+export const menuButtons = document.querySelector('.menu-buttons');
 
 document.getElementById('about').addEventListener('click', openPopUpAbout);
 document.getElementById('map').addEventListener('click', openPopUpMap);
@@ -31,9 +31,10 @@ function openPopUpMap() {
     menuButtons.insertAdjacentHTML('afterend', popUpMapHTML);
 
     document.getElementById('pop-up-map').addEventListener('click', closePopUp);
+    
 }
 
-function closePopUp(event) {
+export function closePopUp(event) {
     if (event.target.classList.contains('pop-up-background')) {
         event.target.remove();
     }

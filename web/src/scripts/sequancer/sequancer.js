@@ -52,16 +52,16 @@ async function generateChords(key, scale, instrument, genre) {
     }
 }
 
-export function getNewChord(length, leftPosition) {
+export function getNewChord(name, length, leftPosition) {
     if (possibleChords.length === 0) {
         return;
     }
 
-    const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
+    const selectedChord = possibleChords.find(chord => chord.Name === name);
 
-    const newNotes = randomChord.Notes.map(note => {
+    const newNotes = selectedChord.Notes.map(note => {
         return new Note(note.Name, note.Path);
     });
-    
-    return new Chord(randomChord.Name, newNotes, length, leftPosition);
+
+    return new Chord(selectedChord.Name, newNotes, length, leftPosition);
 }
