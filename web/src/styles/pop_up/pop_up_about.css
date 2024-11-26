@@ -17,6 +17,7 @@
     flex-direction: column;
     height: 350px;
     width: 300px;
+    border: 4px solid var(--taupe);
     background: var(--light-beige);
 }
 

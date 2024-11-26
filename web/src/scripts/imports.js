@@ -1,6 +1,7 @@
 import "./sequancer/bpm.js";
 import "./sequancer/runner_line.js";
 import "./sequancer/sequancer.js";
+import "./sequancer/export.js";
 import "./chord/chord.js";
 import "./chord/note.js";
 import "./chord/add.js";

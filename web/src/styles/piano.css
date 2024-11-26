@@ -20,7 +20,7 @@
 }
 
 .piano .whole {
-    width: 29.032px;
+    width: 26.2px;
     height: 100%;
     border-left: solid var(--charcoal-grey);
     border-bottom: solid 1px var(--charcoal-grey);
@@ -34,7 +34,7 @@
 
 .piano .half {
     z-index: 1;
-    width: 16.364px;
+    width: 14.2px;
     height: 65%;
     top: -1px;
     background: var(--charcoal-grey);
@@ -44,5 +44,4 @@
 
 .piano .active {
     background: var(--vibrant-orange);
-    
 }

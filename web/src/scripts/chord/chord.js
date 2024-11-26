@@ -2,11 +2,32 @@ import { resizeLeft, resizeRight } from './resize.js';
 import { dragChord } from './drag.js';
 import { deleteChord } from './delete.js';
 import { save, load } from '../local_storage.js';
-
-export let visibleChords = document.querySelectorAll('.chord');
+import { Note } from './note.js';
+ 
+export let visibleChords = [];
 export const chordsContainer = document.querySelector('.chords-container');
 export const containerWidth = chordsContainer.offsetWidth;
 export const gridSize = containerWidth / 16;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loadedChords = JSON.parse(localStorage.getItem('visibleChords')) || [];
+    visibleChords.length = 0;
+
+    loadedChords.forEach(chordData => {
+        const newNotes = chordData.notes.map(noteData => {
+            return new Note(noteData.Name, noteData.path);
+        }).filter(note => note !== undefined); 
+
+        if (chordData.name && newNotes.length > 0 && chordData.length !== undefined && chordData.leftPosition !== undefined) {
+            const newChord = new Chord(chordData.name, newNotes, chordData.length, chordData.leftPosition);
+            newChord.init();
+            visibleChords.push(newChord);
+        }
+    });
+
+    updateChords();
+    eventListenersChords();
+});
 
 export class Chord {
     constructor(name, notes, length, leftPosition) {

@@ -50,7 +50,7 @@ addChordButton.addEventListener('click', () => {
 
 function openPopUpAddChords() {
     const popUpAddChordHTML = `
-    <div id="pop-up-add" class="pop-up-background">
+    <div id="pop-up-add" class="pop-up-background-add">
         <div class="pop-up-container-add">
             <h1>CHOOSE CHORD</h1>
             <div class="pop-up-container-add-panel">

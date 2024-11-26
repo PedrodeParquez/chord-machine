@@ -7,6 +7,7 @@
     <link rel="icon"       href="./src/img/favicon.png">
     <link rel="stylesheet" href="./src/styles/base.css">    
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_about.css">
+    <link rel="stylesheet" href="./src/styles/pop_up/pop_up_export.css">
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_add.css">
     <link rel="stylesheet" href="./src/styles/pop_up/pop_up_map.css">
     <link rel="stylesheet" href="./src/styles/sequancer.css">
@@ -76,7 +77,7 @@
                 <div class="buttons-container">
                     <button id="stop-play-button">STOP/PLAY</button>
                     <button id="metro-button">METRO</button>
-                    <button>EXPORT</button>
+                    <button id="export-button">EXPORT</button>
                 </div>
             </div>
             <div class="bpm-container" id="bpm">137</div>
@@ -86,69 +87,80 @@
         </div>
         <div class="piano">
             <div class="piano-container">
-                <div class="whole" style="left: 0.000%;"></div>
-                <div class="half" style="left: 1.944%"></div>
-                <div class="whole" style="left: 2.778%;"></div>
-                <div class="half" style="left: 4.722%"></div>
-                <div class="whole" style="left: 5.556%;"></div>
-                <div class="whole" style="left: 8.333%;"></div>
-                <div class="half" style="left: 10.278%"></div>
-                <div class="whole" style="left: 11.111%;"></div>
-                <div class="half" style="left: 13.056%"></div>
-                <div class="whole" style="left: 13.889%;"></div>
-                <div class="half" style="left: 15.833%"></div>
-                <div class="whole" style="left: 16.667%;"></div>
-                <div class="whole" style="left: 19.444%;"></div>
-                <div class="half" style="left: 21.389%"></div>
-                <div class="whole" style="left: 22.222%;"></div>
-                <div class="half" style="left: 24.167%"></div>
-                <div class="whole" style="left: 25.000%;"></div>
-                <div class="whole" style="left: 27.778%;"></div>
-                <div class="half" style="left: 29.722%"></div>
-                <div class="whole" style="left: 30.556%;"></div>
-                <div class="half" style="left: 32.500%"></div>
-                <div class="whole" style="left: 33.333%;"></div>
-                <div class="half " style="left: 35.278%"></div>
-                <div class="whole " style="left: 36.111%;"></div>
-                <div id="c_1" class="whole " style="left: 38.889%;"></div>
-                <div id="c#_1" class="half " style="left: 40.833%"></div>
-                <div id="d_1" class="whole " style="left: 41.667%;"></div>
-                <div id="d#_1" class="half " style="left: 43.611%"></div>
-                <div id="e_1" class="whole " style="left: 44.444%;"></div>
-                <div id="f_1" class="whole " style="left: 47.222%;"></div>
-                <div id="f#_1" class="half " style="left: 49.167%"></div>
-                <div id="g_1" class="whole " style="left: 50.000%;"></div>
-                <div id="g#_1" class="half " style="left: 51.944%"></div>
-                <div id="a_1" class="whole " style="left: 52.778%;"></div>
-                <div id="a#_1" class="half " style="left: 54.722%"></div>
-                <div id="b_1" class="whole " style="left: 55.556%;"></div>
-                <div id="c_2" class="whole " style="left: 58.333%;"></div>
-                <div id="c#_2" class="half " style="left: 60.278%"></div>
-                <div id="d_2" class="whole " style="left: 61.111%;"></div>
-                <div id="d#_2" class="half " style="left: 63.056%"></div>
-                <div id="e_2" class="whole " style="left: 63.889%;"></div>
-                <div id="f_2" class="whole " style="left: 66.667%;"></div>
-                <div id="f#_2" class="half " style="left: 68.611%"></div>
-                <div id="g2_" class="whole " style="left: 69.444%;"></div>
-                <div id="g#_2" class="half " style="left: 71.389%"></div>
-                <div id="a_2" class="whole " style="left: 72.222%;"></div>
-                <div id="a#_2" class="half " style="left: 74.167%"></div>
-                <div id="b_2" class="whole " style="left: 75.000%;"></div>
-                <div class="whole" style="left: 77.778%;"></div>
-                <div class="half" style="left: 79.722%"></div>
-                <div class="whole" style="left: 80.556%;"></div>
-                <div class="half" style="left: 82.500%"></div>
-                <div class="whole" style="left: 83.333%;"></div>
-                <div class="whole" style="left: 86.111%;"></div>
-                <div class="half" style="left: 88.056%"></div>
-                <div class="whole" style="left: 88.889%;"></div>
-                <div class="half" style="left: 90.833%"></div>
-                <div class="whole" style="left: 91.667%;"></div>
-                <div class="half" style="left: 93.611%"></div>
-                <div class="whole" style="left: 94.444%;"></div>
-                <div class="whole" style="left: 97.222%;"></div>
+                <div class="whole" style="left: 0%;"></div>
+                <div class="half"  style="left: 1.4%;"></div>
+                <div class="whole" style="left: 2.2095%;"></div>
+                <div class="half"  style="left: 3.95%;"></div>
+                <div class="whole" style="left: 4.719%;"></div>
+                <div class="whole" style="left: 7.14285%;"></div>
+                <div class="half"  style="left: 8.75%;"></div>
+                <div class="whole" style="left: 9.5238%;"></div>
+                <div class="half"  style="left: 11.06%;"></div>
+                <div class="whole" style="left: 11.90475%;"></div>
+                <div class="half"  style="left: 13.56%;"></div>
+                <div class="whole" style="left: 14.2857%;"></div>
+                <div class="whole" style="left: 16.66665%;"></div>
+                <div class="half"  style="left: 18.26%;"></div>
+                <div class="whole" style="left: 19.0476%;"></div>
+                <div class="half"  style="left: 20.66%;"></div>
+                <div class="whole" style="left: 21.42855%;"></div>
+                <div class="whole" style="left: 23.8095%;"></div>
+                <div class="half"  style="left: 25.45%;"></div>
+                <div class="whole" style="left: 26.19045%;"></div>
+                <div class="half"  style="left: 27.8%;"></div>
+                <div class="whole" style="left: 28.5714%;"></div>
+                <div class="half"  style="left: 30.2%;"></div>
+                <div class="whole" style="left: 30.95235%;"></div>
+                <div id="c_1"  class="whole" style="left: 33.3333%;"></div>
+                <div id="c#_1" class="half"  style="left: 34.9%;"></div>
+                <div id="d_1"  class="whole" style="left: 35.71425%;"></div>
+                <div id="d#_1" class="half"  style="left: 37.3%;"></div>
+                <div id="e_1"  class="whole" style="left: 38.0952%;"></div>
+                <div id="f_1"  class="whole" style="left: 40.47615%;"></div>
+                <div id="f#_1" class="half"  style="left: 42.0%;"></div>
+                <div id="g_1"  class="whole" style="left: 42.8571%;"></div>
+                <div id="g#_1" class="half"  style="left: 44.5%;"></div>
+                <div id="a_1"  class="whole" style="left: 45.23805%;"></div>
+                <div id="a#_1" class="half"  style="left: 46.8%;"></div>
+                <div id="b_1"  class="whole" style="left: 47.6190%;"></div>
+                <div id="c_2"  class="whole" style="left: 50%;"></div>
+                <div id="c#_2" class="half"  style="left: 51.55%;"></div>
+                <div id="d_2"  class="whole" style="left: 52.38095%;"></div>
+                <div id="d#_2" class="half"  style="left: 54.0%;"></div>
+                <div id="e_2"  class="whole" style="left: 54.7619%;"></div>
+                <div id="f_2"  class="whole" style="left: 57.14285%;"></div>
+                <div id="f#_2" class="half"  style="left: 58.65%;"></div>
+                <div id="g_2"  class="whole" style="left: 59.5238%;"></div>
+                <div id="g#_2" class="half"  style="left: 61.2%;"></div>
+                <div id="a_2"  class="whole" style="left: 61.90475%;"></div>
+                <div id="a#_2" class="half"  style="left: 63.5%;"></div>
+                <div id="b_2"  class="whole" style="left: 64.2857%;"></div>
+                <div class="whole" style="left: 66.66665%;"></div>
+                <div class="half"  style="left: 68.3%;"></div>
+                <div class="whole" style="left: 69.0476%;"></div>
+                <div class="half"  style="left: 70.65%;"></div>
+                <div class="whole" style="left: 71.42855%;"></div>
+                <div class="whole" style="left: 73.8095%;"></div>
+                <div class="half"  style="left: 75.45%;"></div>
+                <div class="whole" style="left: 76.19045%;"></div>
+                <div class="half"  style="left: 77.75%;"></div>
+                <div class="whole" style="left: 78.5714%;"></div>
+                <div class="half"  style="left: 80.25%;"></div>
+                <div class="whole" style="left: 80.95235%;"></div>
+                <div class="whole" style="left: 83.3333%;"></div>
+                <div class="half"  style="left: 84.95%;"></div>
+                <div class="whole" style="left: 85.71425%;"></div>
+                <div class="half"  style="left: 87.35%;"></div>
+                <div class="whole" style="left: 88.0952%;"></div>
+                <div class="whole" style="left: 90.47615%;"></div>
+                <div class="half"  style="left: 92.05%;"></div>
+                <div class="whole" style="left: 92.8571%;"></div>
+                <div class="half"  style="left: 94.45%;"></div>
+                <div class="whole" style="left: 95.23805%;"></div>
+                <div class="half"  style="left: 96.85%;"></div>
+                <div class="whole" style="left: 97.6190%;"></div>
             </div>
-        </div>
+        </div>                               
         <div class="sequance-container">
             <div class="number-line">
                 <p>1</p>
